@@ -25,6 +25,21 @@ from FSM import FSM
 from TestSuite import TestSuite
 from ModelProgram import ModelProgram
    
+from os.path import exists
+import imp
+
+def load_module(mname):
+  try:
+    return __import__(mname)
+  except ImportError:
+    if mname.endswith(".py"):
+      pyfile, mname = mname, mname[:-3]
+    else:
+      pyfile = mname + ".py"
+    if exists(pyfile):
+      return imp.load_source('mname', pyfile)
+    raise
+
 class ProductModelProgram(object):
  
   def __init__(self, options, args):
@@ -37,7 +52,7 @@ class ProductModelProgram(object):
     #  so we find out what type to wrap each one in 
     #  by checking for one of each type's required attributes using hasattr
     for mname in args: # args is list of module name
-      self.module[mname] = __import__(mname) 
+      self.module[mname] = load_module(mname)
       if hasattr(self.module[mname], 'graph'):
         self.mp[mname] = FSM(self.module[mname],options.exclude,options.action)
       # for backwards compatibility we accept all of these test_suite variants
