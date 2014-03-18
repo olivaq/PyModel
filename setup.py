@@ -62,10 +62,6 @@ setup(
                 'bin/dotps.bat', 
                 'bin/dotsvg', 
                 'bin/dotsvg.bat', 
-                'bin/pma', 
-                'bin/pmg', 
-                'bin/pmt', 
-                'bin/pmv', 
                 'bin/pymodel_paths', 
                 'bin/pymodel_paths.bat', 
                 'bin/tclean', 
@@ -76,7 +72,12 @@ setup(
                 'bin/tpath.bat', 
                 'bin/trun', 
                 'bin/wsgirunner', ],
-
+    entry_points={'console_scripts': [
+                        "pmt = pymodel.pmt:main",
+                        "pma = pymodel.pma:main",
+                        "pmg = pymodel.pmg:main",
+                        "pmv = pymodel.pmv:main",
+                  ]},
     keywords = 'model-based testing python model on-the-fly offline composition finite state machine harness stepper automated test run suite oracle nondeterminism synchronizing interleaving strategy coverage protocol trace scenario',
 
     # from http://pypi.python.org/pypi?%3Aaction=list_classifiers
