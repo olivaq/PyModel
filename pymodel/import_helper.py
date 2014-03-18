@@ -11,5 +11,5 @@ def load_module(mname):
         else:
             pyfile = mname + ".py"
         if exists(pyfile):
-            return imp.load_source('mname', pyfile)
+            return imp.load_source(mname, pyfile)
         raise
