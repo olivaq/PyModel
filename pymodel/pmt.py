@@ -14,6 +14,7 @@ import TesterOptions
 import observation_queue as observation
 
 from ProductModelProgram import ProductModelProgram
+from pymodel.import_helper import load_module
 
 class TimeoutException(Exception): 
   pass 
@@ -179,7 +180,7 @@ def main():
   else:
     mp = ProductModelProgram(options, args)
 
-  stepper = __import__(options.iut) if options.iut else None
+  stepper = load_module(options.iut) if options.iut else None
   if stepper:
     # recognize PEP-8 style names (all lowercase) if present
     if hasattr(stepper, 'testaction'):
@@ -190,7 +191,7 @@ def main():
       stepper.Reset = stepper.reset
 
   if options.strategy:
-    strategy = __import__(options.strategy)
+    strategy = load_module(options.strategy)
     if hasattr(strategy, 'selectaction'):
       strategy.SelectAction = strategy.selectaction
     if hasattr(strategy, 'select_action'):
