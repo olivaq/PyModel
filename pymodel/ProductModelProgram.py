@@ -49,7 +49,8 @@ class ProductModelProgram(object):
         self.mp[mname] = TestSuite(self.module[mname], 
                                    options.exclude, options.action)
         self.TestSuite = True # used by pmt nruns logic
-      elif self.module[mname].__doc__.strip().upper().startswith('PYMODEL CONFIG'):
+      elif (self.module[mname].__doc__ is not None and 
+            self.module[mname].__doc__.strip().upper().startswith('PYMODEL CONFIG')):
         pass # configuration module, merely importing it did all the work
       else:
         # got this far, should be a ModelProgram -- if not, crash
